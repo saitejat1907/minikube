@@ -1,0 +1,96 @@
+# complete-setup.yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: lms
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: db-sa
+  namespace: lms
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: app-sa
+  namespace: lms
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: web-sa
+  namespace: lms
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: lms
+  name: db-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services"]
+    verbs: ["get", "list", "create", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: db-rolebinding
+  namespace: lms
+subjects:
+  - kind: ServiceAccount
+    name: db-sa
+    namespace: lms
+roleRef:
+  kind: Role
+  name: db-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: lms
+  name: app-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services"]
+    verbs: ["get", "list", "create", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: app-rolebinding
+  namespace: lms
+subjects:
+  - kind: ServiceAccount
+    name: app-sa
+    namespace: lms
+roleRef:
+  kind: Role
+  name: app-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: lms
+  name: web-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services"]
+    verbs: ["get", "list", "create", "update", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: web-rolebinding
+  namespace: lms
+subjects:
+  - kind: ServiceAccount
+    name: web-sa
+    namespace: lms
+roleRef:
+  kind: Role
+  name: web-role
+  apiGroup: rbac.authorization.k8s.io
