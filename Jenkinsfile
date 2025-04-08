@@ -8,7 +8,7 @@ pipeline {
                                  disableHostKeyChecking: true,
                                  installation: 'Ansible',
                                  inventory: 'dev.inv',
-                                 playbook: 'Playbook/serviceaccount.yml'
+                                 playbook: 'Playbook/service_accounts.yml'
             }
         }
     }
