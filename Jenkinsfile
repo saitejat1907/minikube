@@ -11,5 +11,16 @@ pipeline {
                                  playbook: 'playbook/service_accounts.yml'
             }
         }
+
+        stages {
+        stage("Execute Ansible") {
+            steps {
+                ansiblePlaybook credentialsId: 'Ansible',
+                                 disableHostKeyChecking: true,
+                                 installation: 'Ansible',
+                                 inventory: 'dev.inv',
+                                 playbook: 'rolebinding/complete-setup.yml'
+            }
+        }
     }
 }
