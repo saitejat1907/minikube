@@ -1,0 +1,26 @@
+---
+- name: Deploy PostgreSQL Service in Kubernetes
+  hosts: n1  # Target machine
+  become: false
+  gather_facts: false
+  collections:
+    - kubernetes.core
+
+  tasks:
+    - name: Create PostgreSQL Service
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: postgres-cluster-ip-service
+            namespace: lms
+          spec:
+            type: ClusterIP
+            selector:
+              component: postgres
+            ports:
+              - port: 5432
+                targetPort: 5432
+        # kubeconfig: "/path/to/kubeconfig"  # Path to your kubeconfig file
