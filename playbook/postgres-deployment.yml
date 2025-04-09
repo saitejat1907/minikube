@@ -26,6 +26,7 @@
                 labels:
                   component: postgres
               spec:
+                serviceAccountName: db-sa
                 containers:
                   - name: postgres
                     image: postgres
