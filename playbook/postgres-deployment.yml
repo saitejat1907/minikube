@@ -1,27 +1,39 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: postgres-deployment
-  namespace: lms  # Ensure the namespace is correct
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      component: postgres
-  template:
-    metadata:
-      labels:
-        component: postgres
-    spec:
-      serviceAccountName: db-sa  # Specify the service account to be used for the deployment
-      containers:
-        - name: postgres
-          image: postgres
-          ports:
-            - containerPort: 5432
-          env:
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret  # Ensure the secret name is correct
-                  key: password
+---
+- name: Deploy PostgreSQL Application in Kubernetes
+  hosts: n1  # your target machine
+  become: false
+  gather_facts: false
+  collections:
+    - kubernetes.core
+
+  tasks:
+    - name: Create PostgreSQL Deployment
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: postgres-deployment
+            namespace: lms
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                component: postgres
+            template:
+              metadata:
+                labels:
+                  component: postgres
+              spec:
+                containers:
+                  - name: postgres
+                    image: postgres
+                    ports:
+                      - containerPort: 5432
+                    env:
+                      - name: POSTGRES_PASSWORD
+                        valueFrom:
+                          secretKeyRef:
+                            name: postgres-secret
+                            key: password
