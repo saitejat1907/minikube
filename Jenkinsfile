@@ -2,6 +2,16 @@ pipeline {
     agent any
 
     stages {
+        stage("Installing Kubernetes Module") {
+            steps {
+                ansiblePlaybook credentialsId: 'Ansible',
+                                 disableHostKeyChecking: true,
+                                 installation: 'Ansible',
+                                 inventory: 'dev.inv',
+                                 playbook: 'playbook/prereq.yml'
+            }
+        }
+
         stage("Create Service Accounts") {
             steps {
                 ansiblePlaybook credentialsId: 'Ansible',
@@ -19,7 +29,7 @@ pipeline {
                                  installation: 'Ansible',
                                  inventory: 'dev.inv',
                                  extraVars: [limit: 'n1'],
-                                 playbook: 'rolebinding/complete-setup.yml'
+                                 playbook: 'playbook/complete-setup.yml'
             }
         }
     }

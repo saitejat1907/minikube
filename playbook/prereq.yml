@@ -1,0 +1,8 @@
+- name: Install Kubernetes Python module if missing
+  hosts: n1
+  become: yes
+  tasks:
+    - name: Ensure kubernetes module is installed
+      ansible.builtin.pip:
+        name: kubernetes
+        executable: pip3
