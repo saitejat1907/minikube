@@ -1,0 +1,25 @@
+---
+- name: Create ConfigMap for Backend
+  hosts: n1
+  become: false
+  gather_facts: false
+  collections:
+    -Kubernetes.core
+
+  tasks:
+    - name: create backend-config-map configMap
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: ConfigMap
+          metadata:
+            name: backend-config-map
+            namespace: lms
+          data:
+            DB_HOST: postgres-cluster-ip-service
+            DB_PORT: "5432"
+            DB_USER: postgres
+            DB_NAME: postgres
+            PORT: "3000"
+            MODE: production
