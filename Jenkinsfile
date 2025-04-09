@@ -43,15 +43,15 @@ pipeline {
     //         }
     //     }
 
-    //     stage("postgres deployment") {
-    //         steps {
-    //             ansiblePlaybook credentialsId: 'Ansible',
-    //                              disableHostKeyChecking: true,
-    //                              installation: 'Ansible',
-    //                              inventory: 'dev.inv',
-    //                              playbook: 'playbook/postgres-deployment.yml'
-    //         }
-    //     }
+        stage("postgres deployment") {
+            steps {
+                ansiblePlaybook credentialsId: 'Ansible',
+                                 disableHostKeyChecking: true,
+                                 installation: 'Ansible',
+                                 inventory: 'dev.inv',
+                                 playbook: 'playbook/postgres-deployment.yml'
+            }
+        }
 
         stage("postgres service") {
             steps {
