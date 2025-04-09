@@ -13,8 +13,11 @@
             namespace: lms
           rules:
             - apiGroups: [""]
-              resources: ["pods", "services"]
+              resources: ["pods", "services", "configmaps", "secrets"]
               verbs: ["get", "list", "create", "delete"]
+            - apiGroups: ["apps"]
+              resources: ["deployments"]
+              verbs: ["get", "list", "create", "update", "delete"]
 
     - name: Bind db-sa to db-role
       kubernetes.core.k8s:
@@ -45,8 +48,12 @@
             namespace: lms
           rules:
             - apiGroups: [""]
-              resources: ["pods", "services"]
-              verbs: ["get", "list", "create", "update"]
+              resources: ["pods", "services", "configmaps", "secrets"]
+              verbs: ["get", "list", "create", "delete"]
+            - apiGroups: ["apps"]
+              resources: ["deployments"]
+              verbs: ["get", "list", "create", "update", "delete"]
+
 
     - name: Bind app-sa to app-role
       kubernetes.core.k8s:
@@ -77,7 +84,10 @@
             namespace: lms
           rules:
             - apiGroups: [""]
-              resources: ["pods", "services"]
+              resources: ["pods", "services", "configmaps", "secrets"]
+              verbs: ["get", "list", "create", "delete"]
+            - apiGroups: ["apps"]
+              resources: ["deployments"]
               verbs: ["get", "list", "create", "update", "delete"]
 
     - name: Bind web-sa to web-role
