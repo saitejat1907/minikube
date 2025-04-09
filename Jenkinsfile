@@ -43,23 +43,43 @@ pipeline {
     //         }
     //     }
 
-        stage("postgres deployment") {
+        // stage("postgres deployment") {
+        //     steps {
+        //         ansiblePlaybook credentialsId: 'Ansible',
+        //                          disableHostKeyChecking: true,
+        //                          installation: 'Ansible',
+        //                          inventory: 'dev.inv',
+        //                          playbook: 'playbook/postgres-deployment.yml'
+        //     }
+        // }
+
+        // stage("postgres service") {
+        //     steps {
+        //         ansiblePlaybook credentialsId: 'Ansible',
+        //                          disableHostKeyChecking: true,
+        //                          installation: 'Ansible',
+        //                          inventory: 'dev.inv',
+        //                          playbook: 'playbook/postgres-service.yml'
+        //     }
+        // }
+
+        stage("config maps") {
             steps {
                 ansiblePlaybook credentialsId: 'Ansible',
                                  disableHostKeyChecking: true,
                                  installation: 'Ansible',
                                  inventory: 'dev.inv',
-                                 playbook: 'playbook/postgres-deployment.yml'
+                                 playbook: 'playbook/config_maps.yml'
             }
         }
 
-        stage("postgres service") {
+        stage("backend deployment and service") {
             steps {
                 ansiblePlaybook credentialsId: 'Ansible',
                                  disableHostKeyChecking: true,
                                  installation: 'Ansible',
                                  inventory: 'dev.inv',
-                                 playbook: 'playbook/postgres-service.yml'
+                                 playbook: 'playbook/be-deploy.yml'
             }
         }
     }

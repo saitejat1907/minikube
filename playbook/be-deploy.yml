@@ -1,0 +1,60 @@
+---
+- name: Deploy LMS Backend Application in Kubernetes
+  hosts: n1  # your target machine
+  become: false
+  gather_facts: false
+  collections:
+    - kubernetes.core
+
+  tasks:
+    - name: Create PostgreSQL Deployment
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: lms-be
+            namespace: lms
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: lms-be
+            template:
+              metadata:
+                labels:
+                  app: lms-be
+              spec:
+                serviceAccountName: app-se  # Reference the service account here
+                containers:
+                  - name: backend-container
+                    image: ravi2krishna/lms-be
+                    imagePullPolicy: Always
+                    ports:
+                      - containerPort: 3000
+                    envFrom:
+                      - configMapRef:
+                          name: backend-config-map
+                    env:
+                      - name: DB_PASSWORD
+                        valueFrom:
+                          secretKeyRef:
+                            name: postgres-secret
+                            key: password
+
+    - name: Create LMS Backend Service
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: lms-be-service
+            namespace: lms
+          spec:
+            type: LoadBalancer
+            ports:
+              - port: 3000
+            selector:
+              app: lms-be
