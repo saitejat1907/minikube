@@ -32,5 +32,25 @@ pipeline {
                                  playbook: 'playbook/complete-setup.yml'
             }
         }
+
+        stage("Create Secret") {
+            steps {
+                ansiblePlaybook credentialsId: 'Ansible',
+                                 disableHostKeyChecking: true,
+                                 installation: 'Ansible',
+                                 inventory: 'dev.inv',
+                                 playbook: 'playbook/postgres-secret.yml'
+            }
+        }
+
+        stage("postgres deployment") {
+            steps {
+                ansiblePlaybook credentialsId: 'Ansible',
+                                 disableHostKeyChecking: true,
+                                 installation: 'Ansible',
+                                 inventory: 'dev.inv',
+                                 playbook: 'playbook/postgres-deployment.yml'
+            }
+        }
     }
 }
