@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage("Execute Ansible") {
+        stage("Create Service Accounts") {
             steps {
                 ansiblePlaybook credentialsId: 'Ansible',
                                  disableHostKeyChecking: true,
@@ -12,8 +12,7 @@ pipeline {
             }
         }
 
-        stages {
-        stage("Execute Ansible") {
+        stage("Apply Role Bindings") {
             steps {
                 ansiblePlaybook credentialsId: 'Ansible',
                                  disableHostKeyChecking: true,
@@ -24,5 +23,4 @@ pipeline {
             }
         }
     }
-}
 }
