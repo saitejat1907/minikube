@@ -18,7 +18,7 @@ pipeline {
                                  disableHostKeyChecking: true,
                                  installation: 'Ansible',
                                  inventory: 'dev.inv',
-                                 extraVars: ['limit=n1'],
+                                 extraVars: [limit: 'n1'],
                                  playbook: 'rolebinding/complete-setup.yml'
             }
         }
