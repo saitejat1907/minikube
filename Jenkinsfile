@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    // stages {
+    stages {
     //     stage("Installing Kubernetes Module") {
     //         steps {
     //             ansiblePlaybook credentialsId: 'Ansible',
