@@ -11,25 +11,34 @@
     dockerhub_password: "{{ dockerhub_password_b64 | b64decode }}"
 
   tasks:
-    - name: Install required packages
-      package:
-        name:
-          - git
-          # - docker
-        state: present
+    # - name: Install required packages
+    #   package:
+    #     name:
+    #       - git
+    #       # - docker
+    #     state: present
 
-    - name: Ensure Docker service is running
-      service:
-        name: docker
-        state: started
-        enabled: true
+    # - name: Ensure Docker service is running
+    #   service:
+    #     name: docker
+    #     state: started
+    #     enabled: true
 
-    - name: Clone LMS repo from GitHub
-      git:
-        repo: "{{ repo_url }}"
-        dest: /tmp/lms
-        version: "{{ repo_branch }}"
-        force: yes
+    # - name: Clone LMS repo from GitHub
+    #   git:
+    #     repo: "{{ repo_url }}"
+    #     dest: /tmp/lms
+    #     version: "{{ repo_branch }}"
+    #     force: yes
+    
+    - name: Check Python interpreter version
+      command: python3 --version
+      register: python_version
+
+    - name: Show python version
+      debug:
+      var: python_version.stdout
+
 
     - name: Build Docker image
       community.docker.docker_image:
