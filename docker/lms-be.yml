@@ -54,8 +54,8 @@
     - name: Build Docker image
       command: docker build -t {{ docker_image_name }} -f /tmp/lms/api/Dockerfile /tmp/lms/api
 
-    - name: Login to Docker Hub
-      command: docker login --username {{ dockerhub_username }} --password {{ dockerhub_password }}
+    # - name: Login to Docker Hub
+    #   command: docker login --username {{ dockerhub_username }} --password {{ dockerhub_password }}
 
     - name: Push Docker image to Docker Hub
       command: docker push {{ docker_image_name }}
