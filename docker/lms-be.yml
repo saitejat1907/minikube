@@ -37,7 +37,7 @@
 
     - name: Show python version
       debug:
-      var: python_version.stdout
+        var: python_version.stdout
 
 
     - name: Build Docker image
