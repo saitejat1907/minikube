@@ -15,7 +15,7 @@
       package:
         name:
           - git
-          - docker
+          # - docker
         state: present
 
     - name: Ensure Docker service is running
