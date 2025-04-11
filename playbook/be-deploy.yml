@@ -29,7 +29,7 @@
                 serviceAccountName: app-se  # Reference the service account here
                 containers:
                   - name: backend-container
-                    image: saiteja19799/k8s_lms_be
+                    image: saitejat1907/k8s-be
                     imagePullPolicy: Always
                     ports:
                       - containerPort: 3000
