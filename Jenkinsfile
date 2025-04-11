@@ -64,15 +64,15 @@ pipeline {
         // }
         
 
-        stage("be_docker_image_build") {
-            steps {
-                ansiblePlaybook credentialsId: 'Ansible',
-                                 disableHostKeyChecking: true,
-                                 installation: 'Ansible',
-                                 inventory: 'dev.inv',
-                                 playbook: 'docker/lms-be.yml'
-            }
-        }
+        // stage("be_docker_image_build") {
+        //     steps {
+        //         ansiblePlaybook credentialsId: 'Ansible',
+        //                          disableHostKeyChecking: true,
+        //                          installation: 'Ansible',
+        //                          inventory: 'dev.inv',
+        //                          playbook: 'docker/lms-be.yml'
+        //     }
+        // }
 
         stage("config maps") {
             steps {
