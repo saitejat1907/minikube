@@ -26,7 +26,7 @@
                 labels:
                   app: lms-be
               spec:
-                serviceAccountName: app-se  # Reference the service account here
+                serviceAccountName: app-sa  # Reference the service account here
                 containers:
                   - name: backend-container
                     image: saitejat1907/k8s-be
