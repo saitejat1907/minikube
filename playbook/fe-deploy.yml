@@ -1,0 +1,52 @@
+- name: Deploy LMS Frontend to Kubernetes
+  hosts: n1
+  tasks:
+    - name: Apply LMS Frontend Deployment
+      kubernetes.core.k8s:
+        state: present
+        definition: |
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: lms-fe
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: lms-fe
+            template:
+              metadata:
+                labels:
+                  app: lms-fe
+              spec:
+                serviceAccountName: web-sa
+                containers:
+                  - name: frontend-container
+                    image: saitejat1907/k8s-fe
+                    imagePullPolicy: Always
+                    ports:
+                      - containerPort: 80
+
+    - name: Apply LMS Frontend Service
+      kubernetes.core.k8s:
+        state: present
+        definition: |
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: lms-fe-service
+          spec:
+            type: LoadBalancer
+            ports:
+              - port: 80
+            selector:
+              app: lms-fe
+
+    # - name: Wait for Pods to be Ready
+    #   ansible.builtin.command: kubectl get pods
+    #   register: pod_status
+    #   changed_when: false
+
+    # - name: Display Pod Status
+    #   ansible.builtin.debug:
+    #     msg: "{{ pod_status.stdout }}"

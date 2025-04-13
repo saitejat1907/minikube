@@ -74,23 +74,33 @@ pipeline {
         //     }
         // }
 
-        stage("config maps") {
-            steps {
-                ansiblePlaybook credentialsId: 'Ansible',
-                                 disableHostKeyChecking: true,
-                                 installation: 'Ansible',
-                                 inventory: 'dev.inv',
-                                 playbook: 'playbook/config_maps.yml'
-            }
-        }
+        // stage("config maps") {
+        //     steps {
+        //         ansiblePlaybook credentialsId: 'Ansible',
+        //                          disableHostKeyChecking: true,
+        //                          installation: 'Ansible',
+        //                          inventory: 'dev.inv',
+        //                          playbook: 'playbook/config_maps.yml'
+        //     }
+        // }
 
-        stage("backend deployment and service") {
+        // stage("backend deployment and service") {
+        //     steps {
+        //         ansiblePlaybook credentialsId: 'Ansible',
+        //                          disableHostKeyChecking: true,
+        //                          installation: 'Ansible',
+        //                          inventory: 'dev.inv',
+        //                          playbook: 'playbook/be-deploy.yml'
+        //     }
+        // }
+
+        stage("frontend deployment and service") {
             steps {
                 ansiblePlaybook credentialsId: 'Ansible',
                                  disableHostKeyChecking: true,
                                  installation: 'Ansible',
                                  inventory: 'dev.inv',
-                                 playbook: 'playbook/be-deploy.yml'
+                                 playbook: 'playbook/fe-deploy.yml'
             }
         }
     }
