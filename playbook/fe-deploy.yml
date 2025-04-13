@@ -36,6 +36,7 @@
           kind: Service
           metadata:
             name: lms-fe-service
+            namespace: lms
           spec:
             type: LoadBalancer
             ports:
