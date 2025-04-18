@@ -2,25 +2,25 @@ pipeline {
     agent any
 
     stages {
-    //     stage("Installing Kubernetes Module") {
-    //         steps {
-    //             ansiblePlaybook credentialsId: 'Ansible',
-    //                              disableHostKeyChecking: true,
-    //                              installation: 'Ansible',
-    //                              inventory: 'dev.inv',
-    //                              playbook: 'playbook/prereq.yml'
-    //         }
-    //     }
+        stage("Installing Kubernetes Module") {
+            steps {
+                ansiblePlaybook credentialsId: 'Ansible',
+                                 disableHostKeyChecking: true,
+                                 installation: 'Ansible',
+                                 inventory: 'dev.inv',
+                                 playbook: 'playbook/prereq.yml'
+            }
+        }
 
-    //     stage("Create Service Accounts") {
-    //         steps {
-    //             ansiblePlaybook credentialsId: 'Ansible',
-    //                              disableHostKeyChecking: true,
-    //                              installation: 'Ansible',
-    //                              inventory: 'dev.inv',
-    //                              playbook: 'playbook/service_accounts.yml'
-    //         }
-    //     }
+        stage("Create Service Accounts") {
+            steps {
+                ansiblePlaybook credentialsId: 'Ansible',
+                                 disableHostKeyChecking: true,
+                                 installation: 'Ansible',
+                                 inventory: 'dev.inv',
+                                 playbook: 'playbook/service_accounts.yml'
+            }
+        }
 
     //     stage("Apply Role Bindings") {
     //         steps {
@@ -94,14 +94,14 @@ pipeline {
         //     }
         // }
 
-        stage("frontend deployment and service") {
-            steps {
-                ansiblePlaybook credentialsId: 'Ansible',
-                                 disableHostKeyChecking: true,
-                                 installation: 'Ansible',
-                                 inventory: 'dev.inv',
-                                 playbook: 'playbook/fe-deploy.yml'
-            }
-        }
+        // stage("frontend deployment and service") {
+        //     steps {
+        //         ansiblePlaybook credentialsId: 'Ansible',
+        //                          disableHostKeyChecking: true,
+        //                          installation: 'Ansible',
+        //                          inventory: 'dev.inv',
+        //                          playbook: 'playbook/fe-deploy.yml'
+        //     }
+        // }
     }
 }
