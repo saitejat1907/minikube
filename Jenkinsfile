@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage("Installing Kubernetes Module") {
-            steps {
-                ansiblePlaybook credentialsId: 'ubuntu1',
-                                 disableHostKeyChecking: true,
-                                 installation: 'Ansible',
-                                 inventory: 'dev.inv',
-                                 playbook: 'playbook/prereq.yml'
-            }
-        }
+        // stage("Installing Kubernetes Module") {
+        //     steps {
+        //         ansiblePlaybook credentialsId: 'ubuntu1',
+        //                          disableHostKeyChecking: true,
+        //                          installation: 'Ansible',
+        //                          inventory: 'dev.inv',
+        //                          playbook: 'playbook/prereq.yml'
+        //     }
+        // }
 
         stage("Create Service Accounts") {
             steps {
