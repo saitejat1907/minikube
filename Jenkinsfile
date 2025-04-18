@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage("Installing Kubernetes Module") {
             steps {
-                ansiblePlaybook credentialsId: 'ubuntu',
+                ansiblePlaybook credentialsId: 'ubuntu1',
                                  disableHostKeyChecking: true,
                                  installation: 'Ansible',
                                  inventory: 'dev.inv',
@@ -14,7 +14,7 @@ pipeline {
 
         stage("Create Service Accounts") {
             steps {
-                ansiblePlaybook credentialsId: 'ubuntu',
+                ansiblePlaybook credentialsId: 'ubuntu1',
                                  disableHostKeyChecking: true,
                                  installation: 'Ansible',
                                  inventory: 'dev.inv',
