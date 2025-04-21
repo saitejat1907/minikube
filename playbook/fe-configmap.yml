@@ -1,0 +1,19 @@
+- name: Create ConfigMap for Frontend
+  hosts: localhost
+  become: false
+  gather_facts: false
+  collections:
+    - kubernetes.core
+
+  tasks:
+    - name: Create frontend-config-map ConfigMap
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: ConfigMap
+          metadata:
+            name: frontend-config-map
+            namespace: lms
+          data:
+            VITE_API_URL: http://lms-be-service:8080/api

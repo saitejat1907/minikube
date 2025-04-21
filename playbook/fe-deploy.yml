@@ -27,6 +27,9 @@
                     imagePullPolicy: Always
                     ports:
                       - containerPort: 80
+                    envFrom:
+                      - configMapRef:
+                          name:frontend-config-map
 
     - name: Apply LMS Frontend Service
       kubernetes.core.k8s:
