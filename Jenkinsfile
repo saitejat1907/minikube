@@ -93,6 +93,15 @@ pipeline {
         //                          playbook: 'playbook/be-deploy.yml'
         //     }
         // }
+        stage("frontend configmaps") {
+            steps {
+                ansiblePlaybook credentialsId: 'Ansible',
+                                 disableHostKeyChecking: true,
+                                 installation: 'Ansible',
+                                 inventory: 'dev.inv',
+                                 playbook: 'playbook/config_maps.yml'
+            }
+        }
 
         stage("frontend deployment and service") {
             steps {
