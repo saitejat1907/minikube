@@ -16,4 +16,4 @@
             name: frontend-config-map
             namespace: lms
           data:
-            VITE_API_URL: http://lms-be-service:8080/api
+            VITE_API_URL: http://lms-be-service:3000/api
