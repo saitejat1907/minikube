@@ -1,5 +1,5 @@
 - name: Create ConfigMap for Frontend
-  hosts: localhost
+  hosts: n1
   become: false
   gather_facts: false
   collections:
