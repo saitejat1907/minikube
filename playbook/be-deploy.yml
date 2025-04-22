@@ -7,7 +7,7 @@
     - kubernetes.core
 
   tasks:
-    - name: Create PostgreSQL Deployment
+    - name: Create LMS Backend Deployment
       kubernetes.core.k8s:
         state: present
         definition:
